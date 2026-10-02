@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aahil — Web Developer & Digital Experience Builder</title>
+    <meta name="description" content="Portfolio of Aahil, Web Developer & Digital Experience Builder specializing in modern conversion websites, robotics AI tools, and autonomous web platforms.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                            accent: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            amber: '#f59e0b',
+                            emerald: '#10b981'
+                        },
+                        dark: {
+                            bg: '#07080c',
+                            card: '#0e111a',
+                            border: '#1e2436',
+                            hover: '#181f30'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 4s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { opacity: 0.4, transform: 'scale(1)' },
+                            '100%': { opacity: 0.8, transform: 'scale(1.08)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Custom Scrollbar & Glassmorphism */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #07080c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e2436;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
+
+        .glass-panel {
+            background: rgba(14, 17, 26, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(18, 22, 34, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-cyan {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-gold {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Toast Popup */
+        #toast {
+            visibility: hidden;
+            min-width: 280px;
+            transform: translateY(100px);
+            transition: all 0.3s ease-in-out;
+        }
+        #toast.show {
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-slate-200 font-sans antialiased selection:bg-brand-500 selection:text-white relative overflow-x-hidden min-h-screen">
+
+    <!-- Toast Notification Widget -->
+    <div id="toast" class="fixed bottom-20 sm:bottom-8 right-4 sm:right-8 z-50 flex items-center gap-3 bg-slate-900 border border-brand-500/50 text-white px-5 py-3.5 rounded-xl shadow-2xl backdrop-blur-md">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-brand-emerald text-lg"></i>
+        <span id="toast-msg" class="text-sm font-medium">Copied to clipboard!</span>
+    </div>
+
+    <!-- Sticky Glass Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-panel border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-accent p-0.5 shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-dark-bg rounded-[10px] flex items-center justify-center font-bold text-lg text-white font-mono">
+                        A
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-lg tracking-tight text-white group-hover:text-brand-100 transition-colors">AAHIL</span>
+                    <span class="text-[10px] uppercase tracking-wider text-slate-400 font-mono -mt-1">Web Dev & AI Builder</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#featured" class="hover:text-brand-500 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-star text-xs text-brand-amber"></i> Featured Projects
+                </a>
+                <a href="#services" class="hover:text-brand-500 transition-colors">Services</a>
+                <a href="#industries" class="hover:text-brand-500 transition-colors">Industries</a>
+                <a href="#process" class="hover:text-brand-500 transition-colors">Process</a>
+                <a href="#estimator" class="hover:text-brand-500 transition-colors">Cost Estimator</a>
+            </nav>
+
+            <!-- Header Action & Availability Badge -->
+            <div class="hidden sm:flex items-center gap-4">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Available for projects
+                </div>
+                
+                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-accent hover:from-brand-500 hover:to-brand-600 text-white font-semibold text-sm shadow-lg shadow-brand-600/30 hover:shadow-brand-600/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2">
+                    <span>Let's Talk</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 text-slate-300 hover:text-white rounded-xl bg-slate-800/50 border border-slate-700/50 focus:outline-none" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/80 bg-dark-bg/95 backdrop-blur-2xl px-4 pt-4 pb-6 space-y-3">
+            <div class="flex items-center gap-2 px-3 py-2 mb-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium w-fit">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Available for New Projects (2026)
+            </div>
+            <a href="#featured" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800/60 font-medium">
+                <i class="fa-solid fa-star text-brand-amber mr-2"></i> Featured Projects
+            </a>
+            <a href="#services" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800/60 font-medium">
+                <i class="fa-solid fa-cubes text-brand-500 mr-2"></i> What I Can Build
+            </a>
+            <a href="#industries" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800/60 font-medium">
+                <i class="fa-solid fa-layer-group text-brand-cyan mr-2"></i> Tailored Solutions
+            </a>
+            <a href="#process" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800/60 font-medium">
+                <i class="fa-solid fa-diagram-project text-emerald-400 mr-2"></i> 5-Step Process
+            </a>
+            <a href="#estimator" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800/60 font-medium">
+                <i class="fa-solid fa-calculator text-purple-400 mr-2"></i> Project Quote Builder
+            </a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800/60 font-medium">
+                <i class="fa-solid fa-paper-plane text-brand-500 mr-2"></i> Direct Contact
+            </a>
+            <div class="pt-2 flex flex-col gap-2">
+                <a href="https://wa.me/919717667553" target="_blank" class="w-full py-3 rounded-xl bg-emerald-600/20 text-emerald-300 font-semibold text-center border border-emerald-500/30 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden grid-pattern">
+        <!-- Ambient Radial Glow Background -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-600/20 rounded-full blur-[140px] pointer-events-none animate-glow"></div>
+        <div class="absolute top-1/3 right-10 w-[350px] h-[350px] bg-brand-cyan/15 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <!-- Availability Pill -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-brand-500/30 text-xs sm:text-sm font-semibold text-slate-200 mb-8 animate-float shadow-lg shadow-brand-500/10">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span class="text-slate-300">AVAILABLE FOR NEW PROJECTS</span>
+                <span class="text-slate-500">|</span>
+                <span class="text-brand-accent font-mono">Q4 2026</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.15] mb-6">
+                Your Business Deserves a Website That <span class="gradient-text">Stands Out.</span>
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed mb-10">
+                Hi, I'm <strong class="text-white font-semibold">Aahil</strong>. I design and build fast, modern, conversion-focused websites and intelligent AI platforms tailored for your growth.
+            </p>
+
+            <!-- Primary CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-14">
+                <a href="#estimator" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-600 via-brand-accent to-brand-500 text-white font-bold text-base shadow-xl shadow-brand-600/30 hover:shadow-brand-600/50 hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-bolt text-brand-amber"></i>
+                    <span>Start Your Project</span>
+                </a>
+                
+                <a href="#featured" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card text-white font-semibold text-base hover:bg-slate-800/80 border-slate-700/80 hover:border-brand-500/50 transition-all flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-eye text-brand-cyan"></i>
+                    <span>Explore Featured Work</span>
+                </a>
+            </div>
+
+            <!-- Key Quick Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-slate-800/80">
+                <div class="p-4 glass-card rounded-2xl text-center">
+                    <div class="text-2xl sm:text-3xl font-bold font-mono text-brand-accent">2 Flagships</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Live & Active AI Platforms</div>
+                </div>
+                <div class="p-4 glass-card rounded-2xl text-center">
+                    <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">100%</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Responsive & Custom</div>
+                </div>
+                <div class="p-4 glass-card rounded-2xl text-center">
+                    <div class="text-2xl sm:text-3xl font-bold font-mono text-brand-cyan">&lt; 1 Sec</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Speed Optimization</div>
+                </div>
+                <div class="p-4 glass-card rounded-2xl text-center">
+                    <div class="text-2xl sm:text-3xl font-bold font-mono text-amber-400">24 / 7</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Direct Communication</div>
+                </div>
+            </div>
+
+            <!-- Tech Stack Pill Ribbon -->
+            <div class="mt-12 flex flex-wrap items-center justify-center gap-2.5 text-xs font-mono text-slate-400">
+                <span class="text-slate-500 font-sans text-xs uppercase tracking-wider mr-2">Tech Stack:</span>
+                <span class="px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800">HTML5 / Tailwind CSS</span>
+                <span class="px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800">JavaScript (ES6+)</span>
+                <span class="px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800">React & Next.js</span>
+                <span class="px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800">AI APIs & LLMs</span>
+                <span class="px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800">Python / Webhooks</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Featured Projects / Works Section -->
+    <section id="featured" class="py-24 relative bg-dark-bg border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <!-- Section Title -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-accent text-xs font-mono uppercase tracking-wider mb-4">
+                    <i class="fa-solid fa-fire text-brand-amber"></i> Showcase Innovations
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Featured Works & <span class="gradient-text">AI Products</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg mt-4">
+                    Two primary showcase projects representing active production web platforms and next-generation autonomous AI concepts.
+                </p>
+            </div>
+
+            <!-- Projects Grid (Two High-Impact Showcase Cards) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
+                
+                <!-- PROJECT 1: Circuit AI (LIVE WEBSITE) -->
+                <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-slate-800 hover:border-emerald-500/40 relative group overflow-hidden">
+                    <!-- Subtle Glow Effect -->
+                    <div class="absolute -right-20 -top-20 w-60 h-60 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/20 transition-all"></div>
+                    
+                    <div>
+                        <!-- Header Status & Tag -->
+                        <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
+                            <span class="px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-sm shadow-emerald-500/20">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                LIVE WEBSITE
+                            </span>
+                            <a href="https://www.circuitai.in" target="_blank" class="text-xs font-mono text-slate-400 hover:text-emerald-400 flex items-center gap-1 transition-colors">
+                                www.circuitai.in <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
+                        <!-- Visual Interactive Card Banner -->
+                        <div class="w-full h-52 sm:h-60 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/40 border border-slate-800 p-4 mb-6 relative overflow-hidden flex flex-col justify-between shadow-inner">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                    <span class="text-xs font-mono text-slate-400 ml-2">CircuitAI Studio v2.4</span>
+                                </div>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Active Node</span>
+                            </div>
+
+                            <!-- Graphic Representation of Circuit AI -->
+                            <div class="grid grid-cols-2 gap-3 my-auto">
+                                <div class="bg-slate-900/90 rounded-xl p-3 border border-emerald-500/20">
+                                    <div class="text-[10px] font-mono text-emerald-400 mb-1"><i class="fa-solid fa-microchip mr-1"></i> Circuit Analysis</div>
+                                    <div class="text-xs font-medium text-slate-200">ESP32 & Arduino Pinout Helper</div>
+                                </div>
+                                <div class="bg-slate-900/90 rounded-xl p-3 border border-emerald-500/20">
+                                    <div class="text-[10px] font-mono text-cyan-400 mb-1"><i class="fa-solid fa-code mr-1"></i> Firmware Generator</div>
+                                    <div class="text-xs font-medium text-slate-200">C++ / Python Robotics Code</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2 border-t border-slate-800/80">
+                                <span><i class="fa-solid fa-bolt text-emerald-400"></i> Speed: Instant</span>
+                                <span>Robotics Assistant Platform</span>
+                            </div>
+                        </div>
+
+                        <!-- Project Title & Core Purpose -->
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">
+                            Circuit AI
+                        </h3>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                            A specialized, modern AI platform built specifically for robotics students, hardware engineers, and electronics hobbyists to make circuit schematic analysis, firmware code generation, and hardware debugging easier, simpler, and faster.
+                        </p>
+
+                        <!-- Highlights & Key Features -->
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-3 py-1 rounded-lg bg-slate-800/80 text-slate-300 text-xs font-medium border border-slate-700/60">
+                                <i class="fa-solid fa-microchip text-emerald-400 mr-1.5"></i>Robotics Workflows
+                            </span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-800/80 text-slate-300 text-xs font-medium border border-slate-700/60">
+                                <i class="fa-solid fa-code text-cyan-400 mr-1.5"></i>Firmware AI Generator
+                            </span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-800/80 text-slate-300 text-xs font-medium border border-slate-700/60">
+                                <i class="fa-solid fa-diagram-project text-amber-400 mr-1.5"></i>Circuit Troubleshooting
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center gap-3 pt-4 border-t border-slate-800/80">
+                        <a href="https://www.circuitai.in" target="_blank" class="w-full sm:w-1/2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/40 text-center transition-all flex items-center justify-center gap-2">
+                            <span>Visit Live Website</span>
+                            <i class="fa-solid fa-external-link text-xs"></i>
+                        </a>
+                        <button onclick="openModal('circuit-ai-modal')" class="w-full sm:w-1/2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700/80 hover:border-emerald-500/50 text-center transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-info text-emerald-400"></i>
+                            <span>View Details & Preview</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: ForgeOS (CONCEPT / IN PROGRESS) -->
+                <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-slate-800 hover:border-brand-500/40 relative group overflow-hidden">
+                    <!-- Subtle Glow Effect -->
+                    <div class="absolute -right-20 -top-20 w-60 h-60 bg-brand-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-brand-500/20 transition-all"></div>
+
+                    <div>
+                        <!-- Header Status & Tag -->
+                        <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
+                            <span class="px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-sm shadow-amber-500/20">
+                                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                                CONCEPT / IN PROGRESS
+                            </span>
+                            <span class="text-xs font-mono text-slate-400 flex items-center gap-1">
+                                Launching Soon <i class="fa-solid fa-rocket text-brand-amber"></i>
+                            </span>
+                        </div>
+
+                        <!-- Visual Interactive Card Banner -->
+                        <div class="w-full h-52 sm:h-60 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40 border border-slate-800 p-4 mb-6 relative overflow-hidden flex flex-col justify-between shadow-inner">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                    <span class="text-xs font-mono text-slate-400 ml-2">ForgeOS Autonomous Engine</span>
+                                </div>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-500/20 text-brand-accent">In Active Development</span>
+                            </div>
+
+                            <!-- Graphic Representation of ForgeOS -->
+                            <div class="space-y-2.5 my-auto">
+                                <div class="p-2.5 bg-slate-900/90 rounded-xl border border-brand-500/30 flex items-center justify-between">
+                                    <div class="text-xs font-mono text-slate-300 flex items-center gap-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-brand-accent"></i>
+                                        Prompt: "Build a solar energy startup & business plan"
+                                    </div>
+                                    <span class="text-[10px] font-mono text-emerald-400 font-bold">100% Ready</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-slate-950/80 p-2 rounded-lg text-[11px] font-mono text-slate-300 flex items-center gap-1.5 border border-slate-800">
+                                        <i class="fa-solid fa-globe text-cyan-400"></i> Full Website Generated
+                                    </div>
+                                    <div class="bg-slate-950/80 p-2 rounded-lg text-[11px] font-mono text-slate-300 flex items-center gap-1.5 border border-slate-800">
+                                        <i class="fa-solid fa-file-invoice text-amber-400"></i> Business Plan Ready
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2 border-t border-slate-800/80">
+                                <span><i class="fa-solid fa-clock text-amber-400"></i> Generation Time: ~5 Seconds</span>
+                                <span>Autonomous AI Engine</span>
+                            </div>
+                        </div>
+
+                        <!-- Project Title & Core Purpose -->
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3 group-hover:text-brand-accent transition-colors">
+                            ForgeOS
+                        </h3>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                            An intelligent autonomous AI platform that can build complete, production-grade websites and generate comprehensive 10-page business strategy plans in seconds from a single idea prompt. Currently under active design and development.
+                        </p>
+
+                        <!-- Highlights & Key Features -->
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-3 py-1 rounded-lg bg-slate-800/80 text-slate-300 text-xs font-medium border border-slate-700/60">
+                                <i class="fa-solid fa-bolt text-brand-amber mr-1.5"></i>Instant Site Builder
+                            </span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-800/80 text-slate-300 text-xs font-medium border border-slate-700/60">
+                                <i class="fa-solid fa-briefcase text-brand-accent mr-1.5"></i>Automated Business Plan
+                            </span>
+                            <span class="px-3 py-1 rounded-lg bg-slate-800/80 text-slate-300 text-xs font-medium border border-slate-700/60">
+                                <i class="fa-solid fa-brain text-brand-cyan mr-1.5"></i>AI Business Strategist
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center gap-3 pt-4 border-t border-slate-800/80">
+                        <button onclick="openModal('forgeos-modal')" class="w-full sm:w-1/2 py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-600/20 hover:shadow-brand-600/40 text-center transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Explore Concept & Specs</span>
+                        </button>
+                        <a href="#contact" class="w-full sm:w-1/2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700/80 hover:border-brand-500/50 text-center transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-bell text-brand-amber"></i>
+                            <span>Get Early Access / Join Waitlist</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- What Can I Build For You (Services Grid) -->
+    <section id="services" class="py-24 relative bg-dark-card/40 border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan text-xs font-mono uppercase tracking-wider mb-4">
+                    <i class="fa-solid fa-cubes"></i> Core Services
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    What Can I Build <span class="gradient-text-cyan">For You?</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg mt-4">
+                    From conversion-oriented marketing websites to custom AI-enabled web portals, I deliver clean code and responsive design.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Service 1 -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl relative group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-accent text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Modern Business Websites</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Custom-coded, high-conversion websites designed to build trust, showcase your brand, and turn visitors into loyal clients.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 font-mono">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Fast load speeds (&lt; 1s)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> SEO & mobile optimized</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl relative group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">AI-Powered Web Apps</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Custom web tools with integrated LLM APIs, automated workflows, and smart assistants similar to Circuit AI and ForgeOS.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 font-mono">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> OpenAI & Custom LLM integration</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Automated data handling</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl relative group">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-brand-amber text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">High-Impact Landing Pages</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Single-page sales funnels engineered specifically for product launches, lead generation, and ad campaigns.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 font-mono">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-amber"></i> Direct CTA hooks</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-amber"></i> Form & WhatsApp leads integration</li>
+                    </ul>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl relative group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Schools & Institute Portals</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Organized, accessible websites for educational institutes, academies, and robotics clubs with schedule & inquiry forms.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 font-mono">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Inquiry management</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Course & program displays</li>
+                    </ul>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl relative group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Personal & Creator Portfolios</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Sleek, interactive personal brand websites that highlight your projects, skills, and client achievements seamlessly.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 font-mono">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Interactive project modals</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Direct contact automation</li>
+                    </ul>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl relative group">
+                    <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">E-Commerce & Service Catalogs</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Modern product catalogs and service storefronts integrated with direct order placement via WhatsApp or checkout.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 font-mono">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-400"></i> Instant WhatsApp checkout</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-400"></i> Clean product filtering</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- "Whatever You Do, I Can Build Around It" Interactive Industry Hub -->
+    <section id="industries" class="py-24 relative bg-dark-bg border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-amber/10 border border-brand-amber/30 text-brand-amber text-xs font-mono uppercase tracking-wider mb-4">
+                    <i class="fa-solid fa-compass"></i> Custom Tailoring
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Whatever You Do, <span class="gradient-text-gold">I Can Build Around It.</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg mt-4">
+                    Select your industry below to see how a custom-designed digital platform can serve your specific goals.
+                </p>
+            </div>
+
+            <!-- Industry Selector Pills -->
+            <div class="flex flex-wrap justify-center gap-2.5 mb-12" id="industry-pills-container">
+                <button onclick="selectIndustry('robotics')" class="ind-btn active px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all flex items-center gap-2 bg-brand-600 border-brand-500 text-white shadow-lg shadow-brand-600/20" data-ind="robotics">
+                    <i class="fa-solid fa-microchip text-xs"></i> Robotics & Hardware
+                </button>
+                <button onclick="selectIndustry('education')" class="ind-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 transition-all flex items-center gap-2" data-ind="education">
+                    <i class="fa-solid fa-graduation-cap text-xs"></i> Education & Academies
+                </button>
+                <button onclick="selectIndustry('startups')" class="ind-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 transition-all flex items-center gap-2" data-ind="startups">
+                    <i class="fa-solid fa-rocket text-xs"></i> Tech Startups & SaaS
+                </button>
+                <button onclick="selectIndustry('clinics')" class="ind-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 transition-all flex items-center gap-2" data-ind="clinics">
+                    <i class="fa-solid fa-user-doctor text-xs"></i> Clinics & Healthcare
+                </button>
+                <button onclick="selectIndustry('local')" class="ind-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 transition-all flex items-center gap-2" data-ind="local">
+                    <i class="fa-solid fa-store text-xs"></i> Local Businesses
+                </button>
+            </div>
+
+            <!-- Dynamic Dynamic Display Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border-slate-800 max-w-4xl mx-auto" id="industry-display-card">
+                <!-- Content injected via JS -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why Work With Me -->
+    <section class="py-24 relative bg-dark-card/30 border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Why Work <span class="gradient-text">With Me?</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg mt-4">
+                    No agency bloat or communication delays. Just direct developer access and high-precision execution.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="p-6 rounded-2xl glass-panel">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Fast & Predictable Delivery</h3>
+                    <p class="text-sm text-slate-400">Clear project milestones with strict deadlines so you launch on time without surprises.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-panel">
+                    <div class="w-10 h-10 rounded-lg bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-accent mb-4">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">100% Custom & Responsive</h3>
+                    <p class="text-sm text-slate-400">Every design is crafted from scratch to adapt fluidly across iPhones, Androids, tablets, and desktops.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-panel">
+                    <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Smart AI Integration</h3>
+                    <p class="text-sm text-slate-400">Leverage AI features (similar to Circuit AI & ForgeOS) to automate user inquiries or hardware tools.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-panel">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Direct 1-on-1 Communication</h3>
+                    <p class="text-sm text-slate-400">Speak directly with me via WhatsApp or Email. No sales managers or endless middleman loops.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-panel">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">SEO & Speed Engineered</h3>
+                    <p class="text-sm text-slate-400">Optimized code structure and lightweight assets ensuring high Google search visibility and instant loads.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-panel">
+                    <div class="w-10 h-10 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 mb-4">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Clean & Scalable Codebase</h3>
+                    <p class="text-sm text-slate-400">Built using modern web standards so your platform can easily scale as your business expands.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5-Step Process Section -->
+    <section id="process" class="py-24 relative bg-dark-bg border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono uppercase tracking-wider mb-4">
+                    <i class="fa-solid fa-route"></i> Roadmap
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Simple 5-Step <span class="gradient-text">Execution Process</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg mt-4">
+                    From raw idea to live launch, here is how we bring your project to life smoothly.
+                </p>
+            </div>
+
+            <!-- Steps Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                
+                <div class="p-6 rounded-2xl glass-card border-slate-800 relative">
+                    <div class="text-3xl font-extrabold font-mono text-brand-500/40 mb-3">01</div>
+                    <h4 class="text-lg font-bold text-white mb-2">Idea & Goals</h4>
+                    <p class="text-xs text-slate-400">We discuss your targets, target audience, and key required features.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-card border-slate-800 relative">
+                    <div class="text-3xl font-extrabold font-mono text-brand-cyan/40 mb-3">02</div>
+                    <h4 class="text-lg font-bold text-white mb-2">Plan & Layout</h4>
+                    <p class="text-xs text-slate-400">Mapping visual structure, page hierarchy, and AI functional requirements.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-card border-slate-800 relative">
+                    <div class="text-3xl font-extrabold font-mono text-brand-amber/40 mb-3">03</div>
+                    <h4 class="text-lg font-bold text-white mb-2">Build & Code</h4>
+                    <p class="text-xs text-slate-400">Developing responsive code, styling with Tailwind, and integrating APIs.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-card border-slate-800 relative">
+                    <div class="text-3xl font-extrabold font-mono text-purple-500/40 mb-3">04</div>
+                    <h4 class="text-lg font-bold text-white mb-2">Review & Refine</h4>
+                    <p class="text-xs text-slate-400">Testing on devices, incorporating client feedback, and fine-tuning details.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl glass-card border-slate-800 border-emerald-500/30 relative bg-emerald-950/10">
+                    <div class="text-3xl font-extrabold font-mono text-emerald-400 mb-3">05</div>
+                    <h4 class="text-lg font-bold text-white mb-2">Live Launch</h4>
+                    <p class="text-xs text-slate-400">Deploying to domain, configuring SSL, and handing over full access.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Project Cost Estimator & Inquiry Generator -->
+    <section id="estimator" class="py-24 relative bg-dark-card/50 border-t border-slate-800/60">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono uppercase tracking-wider mb-4">
+                    <i class="fa-solid fa-calculator"></i> Interactive Selector
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    What Do You <span class="gradient-text">Need Built?</span>
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg mt-4">
+                    Select your project options below to auto-generate a structured project request for WhatsApp or Email.
+                </p>
+            </div>
+
+            <!-- Estimator Form Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border-slate-800 space-y-8">
+                
+                <!-- Option 1: Project Type -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-200 mb-3 uppercase tracking-wider text-xs font-mono">
+                        1. Select Project Type
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <button type="button" onclick="updateEstimator('type', 'Business Website')" class="est-type-btn active p-3 rounded-xl border border-brand-500 bg-brand-600/20 text-white text-xs font-semibold text-left transition-all" data-val="Business Website">
+                            <i class="fa-solid fa-briefcase mb-1 text-brand-accent block text-sm"></i> Business Website
+                        </button>
+                        <button type="button" onclick="updateEstimator('type', 'AI Web App')" class="est-type-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-left transition-all" data-val="AI Web App">
+                            <i class="fa-solid fa-robot mb-1 text-brand-cyan block text-sm"></i> AI Web Application
+                        </button>
+                        <button type="button" onclick="updateEstimator('type', 'Landing Page')" class="est-type-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-left transition-all" data-val="Landing Page">
+                            <i class="fa-solid fa-rocket mb-1 text-brand-amber block text-sm"></i> High-Convert Landing
+                        </button>
+                        <button type="button" onclick="updateEstimator('type', 'School / Institute Site')" class="est-type-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-left transition-all" data-val="School / Institute Site">
+                            <i class="fa-solid fa-graduation-cap mb-1 text-emerald-400 block text-sm"></i> Institute / Org Portal
+                        </button>
+                        <button type="button" onclick="updateEstimator('type', 'Personal Portfolio')" class="est-type-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-left transition-all" data-val="Personal Portfolio">
+                            <i class="fa-solid fa-user-astronaut mb-1 text-purple-400 block text-sm"></i> Creator Portfolio
+                        </button>
+                        <button type="button" onclick="updateEstimator('type', 'Website Redesign')" class="est-type-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-left transition-all" data-val="Website Redesign">
+                            <i class="fa-solid fa-rotate mb-1 text-rose-400 block text-sm"></i> Site Redesign
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Option 2: Desired Add-ons -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-200 mb-3 uppercase tracking-wider text-xs font-mono">
+                        2. Key Features Needed
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-xs font-medium text-slate-300 cursor-pointer hover:border-slate-700">
+                            <input type="checkbox" onchange="toggleFeature('AI Integration')" class="est-feat rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-0">
+                            <span>Smart AI API Integration</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-xs font-medium text-slate-300 cursor-pointer hover:border-slate-700">
+                            <input type="checkbox" onchange="toggleFeature('WhatsApp Direct Inquiry')" checked class="est-feat rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-0">
+                            <span>WhatsApp Lead Button</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-xs font-medium text-slate-300 cursor-pointer hover:border-slate-700">
+                            <input type="checkbox" onchange="toggleFeature('Robotics/Hardware Tools')" class="est-feat rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-0">
+                            <span>Robotics / Code Helper</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-xs font-medium text-slate-300 cursor-pointer hover:border-slate-700">
+                            <input type="checkbox" onchange="toggleFeature('Mobile Responsiveness')" checked class="est-feat rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-0">
+                            <span>100% Mobile Optimization</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-xs font-medium text-slate-300 cursor-pointer hover:border-slate-700">
+                            <input type="checkbox" onchange="toggleFeature('SEO & Speed Audit')" checked class="est-feat rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-0">
+                            <span>Google SEO & Speed Boost</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 cursor-pointer">
+                            <input type="checkbox" onchange="toggleFeature('Custom Admin CMS')" class="est-feat rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-0">
+                            <span class="text-xs font-medium text-slate-300">Custom Admin Portal</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Option 3: Timeline -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-200 mb-3 uppercase tracking-wider text-xs font-mono">
+                        3. Target Timeline
+                    </label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button type="button" onclick="updateEstimator('timeline', 'Urgent (1 Week)')" class="est-time-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-center transition-all" data-val="Urgent (1 Week)">
+                            Urgent (1 Week)
+                        </button>
+                        <button type="button" onclick="updateEstimator('timeline', 'Standard (2-3 Weeks)')" class="est-time-btn active p-3 rounded-xl border border-brand-500 bg-brand-600/20 text-white text-xs font-semibold text-center transition-all" data-val="Standard (2-3 Weeks)">
+                            Standard (2-3 Weeks)
+                        </button>
+                        <button type="button" onclick="updateEstimator('timeline', 'Flexible')" class="est-time-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-center transition-all" data-val="Flexible">
+                            Flexible
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Generated Inquiry Text Preview -->
+                <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                    <div class="text-xs font-mono text-slate-400 mb-2 flex items-center justify-between">
+                        <span>Generated Project Request Message:</span>
+                        <span class="text-brand-accent"><i class="fa-solid fa-code"></i> Auto-Formatted</span>
+                    </div>
+                    <p id="estimator-preview" class="text-xs sm:text-sm font-mono text-emerald-300 leading-relaxed">
+                        Hi Aahil! I would like to discuss building a Business Website with features: [WhatsApp Lead Button, Mobile Optimization, SEO & Speed Boost]. Timeline: Standard (2-3 Weeks). Please let me know your availability!
+                    </p>
+                </div>
+
+                <!-- Dispatch Actions -->
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <button type="button" onclick="sendEstimatorWhatsApp()" class="w-full sm:w-1/2 py-4 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-600/30 flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Send Request via WhatsApp</span>
+                    </button>
+
+                    <button type="button" onclick="sendEstimatorEmail()" class="w-full sm:w-1/2 py-4 px-6 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-xl shadow-brand-600/30 flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-envelope text-lg"></i>
+                        <span>Send Request via Email</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Hub & Direct Request Form -->
+    <section id="contact" class="py-24 relative bg-dark-bg border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <!-- Left: Contact Details & Quick Links -->
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-accent text-xs font-mono uppercase tracking-wider mb-4">
+                        <i class="fa-solid fa-headset"></i> Direct Touchpoint
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-6">
+                        Let's Build Something <span class="gradient-text">Great Together.</span>
+                    </h2>
+                    <p class="text-slate-300 text-base leading-relaxed mb-8">
+                        Have a project in mind, need a live site like <strong class="text-white">Circuit AI</strong>, or want to collaborate on concepts like <strong class="text-white">ForgeOS</strong>? Reach out directly via WhatsApp or Email.
+                    </p>
+
+                    <div class="space-y-4 mb-10">
+                        
+                        <!-- Email Card -->
+                        <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-slate-800 hover:border-brand-500/50">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-accent text-xl">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-mono text-slate-400">Direct Email</div>
+                                    <div class="text-sm sm:text-base font-bold text-white">techokids123@gmail.com</div>
+                                </div>
+                            </div>
+                            <button onclick="copyToClipboard('techokids123@gmail.com', 'Email address copied!')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all" title="Copy Email">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <!-- WhatsApp Card -->
+                        <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-slate-800 hover:border-emerald-500/50">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-mono text-slate-400">WhatsApp / Direct Phone</div>
+                                    <div class="text-sm sm:text-base font-bold text-white">+91 9717667553</div>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/919717667553" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-all flex items-center gap-1.5">
+                                <span>Chat</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Direct Fast Actions -->
+                    <div class="p-5 rounded-2xl glass-panel border-brand-500/20 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-xs font-medium text-slate-300">Fast Response Time: <strong class="text-white">&lt; 2 Hours</strong></span>
+                        </div>
+                        <span class="text-xs font-mono text-brand-accent">India (IST)</span>
+                    </div>
+                </div>
+
+                <!-- Right: Quick Direct Form -->
+                <div class="glass-card rounded-3xl p-6 sm:p-8 border-slate-800">
+                    <h3 class="text-2xl font-bold text-white mb-2">Send a Quick Message</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mb-6">Fill out the form below to send an instant email or WhatsApp inquiry.</p>
+
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono text-slate-300 mb-1.5 uppercase">Your Name</label>
+                            <input type="text" id="form-name" required placeholder="e.g. Rahul Sharma" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-slate-300 mb-1.5 uppercase">Your Email or Phone</label>
+                            <input type="text" id="form-contact" required placeholder="e.g. name@company.com or +91..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-slate-300 mb-1.5 uppercase">Project Scope / Details</label>
+                            <textarea id="form-message" rows="4" required placeholder="Tell me about your business or project ideas..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors resize-none"></textarea>
+                        </div>
+
+                        <div class="pt-2 flex flex-col sm:flex-row items-center gap-3">
+                            <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-brand-600 to-brand-accent hover:from-brand-500 hover:to-brand-600 text-white font-bold text-sm shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Submit Inquiry</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-dark-bg border-t border-slate-800/80 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center font-bold text-white font-mono text-sm">
+                    A
+                </div>
+                <div>
+                    <span class="text-white font-bold">AAHIL</span>
+                    <span class="text-slate-500 text-xs block">Digital Experience & AI Web Developer</span>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
+                <a href="#featured" class="hover:text-white transition-colors">Circuit AI</a>
+                <a href="#featured" class="hover:text-white transition-colors">ForgeOS</a>
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#estimator" class="hover:text-white transition-colors">Estimator</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="text-xs text-slate-500 font-mono text-center md:text-right">
+                © 2026 Aahil. All rights reserved.
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Touch-Friendly Floating Action Bar for Mobile -->
+    <div class="sm:hidden fixed bottom-4 left-4 right-4 z-40 glass-panel rounded-2xl p-2 border-brand-500/30 flex items-center justify-between shadow-2xl">
+        <a href="https://wa.me/919717667553" target="_blank" class="flex-1 py-2.5 text-center rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+        </a>
+        <a href="#estimator" class="flex-1 py-2.5 text-center rounded-xl bg-brand-600 text-white font-bold text-xs flex items-center justify-center gap-2 ml-2">
+            <i class="fa-solid fa-calculator text-sm"></i> Quote
+        </a>
+        <a href="#contact" class="p-2.5 text-center rounded-xl bg-slate-800 text-slate-200 ml-2">
+            <i class="fa-solid fa-envelope text-sm"></i>
+        </a>
+    </div>
+
+    <!-- MODAL 1: Circuit AI Modal Details & Interactive Preview -->
+    <div id="circuit-ai-modal" class="fixed inset-0 z-50 hidden bg-dark-bg/90 backdrop-blur-md p-4 sm:p-6 overflow-y-auto flex items-center justify-center">
+        <div class="glass-card rounded-3xl max-w-3xl w-full p-6 sm:p-8 border-emerald-500/30 relative my-auto shadow-2xl">
+            <button onclick="closeModal('circuit-ai-modal')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800/80">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-mono w-fit mb-4">
+                <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> LIVE PRODUCTION PLATFORM
+            </div>
+
+            <h3 class="text-3xl font-extrabold text-white mb-2">Circuit AI</h3>
+            <p class="text-slate-300 text-sm mb-6">URL: <a href="https://www.circuitai.in" target="_blank" class="text-emerald-400 underline font-mono">https://www.circuitai.in</a></p>
+
+            <div class="space-y-4 mb-6">
+                <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                    <h4 class="text-sm font-bold text-white mb-1"><i class="fa-solid fa-bullseye text-emerald-400 mr-2"></i>Core Mission</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Built specifically for robotics students, engineering researchers, and hardware hobbyists. It drastically reduces development time by offering automated circuit analysis, pinout cross-referencing, and C++/Python firmware code generation for controllers like Arduino, ESP32, and STM32.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300">
+                        <strong class="text-emerald-400 block mb-1">Pinout & Schematic AI</strong>
+                        Instant layout cross-checking for motor drivers, sensors, and OLED displays.
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300">
+                        <strong class="text-cyan-400 block mb-1">Code & Firmware Engine</strong>
+                        Generates non-blocking firmware loops for robotics actuators and sensors.
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800">
+                <a href="https://www.circuitai.in" target="_blank" class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm text-center flex items-center justify-center gap-2">
+                    <span>Open Circuit AI (www.circuitai.in)</span>
+                    <i class="fa-solid fa-external-link text-xs"></i>
+                </a>
+                <button onclick="closeModal('circuit-ai-modal')" class="py-3 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ForgeOS Concept Modal Specs -->
+    <div id="forgeos-modal" class="fixed inset-0 z-50 hidden bg-dark-bg/90 backdrop-blur-md p-4 sm:p-6 overflow-y-auto flex items-center justify-center">
+        <div class="glass-card rounded-3xl max-w-3xl w-full p-6 sm:p-8 border-brand-500/30 relative my-auto shadow-2xl">
+            <button onclick="closeModal('forgeos-modal')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800/80">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 text-xs font-mono w-fit mb-4">
+                <i class="fa-solid fa-flask text-xs"></i> CONCEPT & IN-PROGRESS ARCHITECTURE
+            </div>
+
+            <h3 class="text-3xl font-extrabold text-white mb-2">ForgeOS</h3>
+            <p class="text-slate-300 text-sm mb-6">Autonomous Prompt-to-Business & Web Generation Platform</p>
+
+            <div class="space-y-4 mb-6">
+                <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                    <h4 class="text-sm font-bold text-white mb-1"><i class="fa-solid fa-wand-magic-sparkles text-brand-accent mr-2"></i>How ForgeOS Works</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        ForgeOS is designed to eliminate the friction of launching a business. You type a concept (e.g. "Drone repair hub with instant booking"), and ForgeOS autonomously outputs:
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-1.5 mt-2 ml-4 list-disc font-mono">
+                        <li>A fully styled, responsive HTML/Tailwind web application</li>
+                        <li>A 10-page executive business plan (financials, target audience, marketing roadmap)</li>
+                        <li>Branding assets & domain recommendation matrix</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 rounded-xl bg-indigo-950/20 border border-brand-500/20 text-xs text-slate-300">
+                    <strong class="text-brand-accent block mb-1">Current Development Status (2026):</strong>
+                    Core generation algorithms and UI templates are under active refinement. Early access testers are being selected.
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800">
+                <a href="#contact" onclick="closeModal('forgeos-modal')" class="flex-1 py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Inquire About ForgeOS Beta Access</span>
+                </a>
+                <button onclick="closeModal('forgeos-modal')" class="py-3 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        // Industry Data Store
+        const industryData = {
+            robotics: {
+                title: "Robotics, AI & Hardware Innovators",
+                desc: "Hardware & robotics initiatives require crisp technical presentation, interactive schematic assistance, and documentation platforms similar to Circuit AI.",
+                features: [
+                    "Interactive pinout and circuit visualizers",
+                    "Downloadable firmware code snippet sections",
+                    "High-speed API integrations for hardware logs",
+                    "Custom showcase for hardware prototyping projects"
+                ],
+                tag: "Recommended Stack: Web App + AI API Integration"
+            },
+            education: {
+                title: "Schools, Institutes & STEM Academies",
+                desc: "Clean, accessible portals for students, parents, and instructors with course schedules and direct inquiry forms.",
+                features: [
+                    "Course & workshop enrollment forms",
+                    "Direct WhatsApp admissions helpline button",
+                    "Student showcase & robotics achievement gallery",
+                    "Fast loading on mobile connections"
+                ],
+                tag: "Recommended Stack: Institutional Web Portal"
+            },
+            startups: {
+                title: "Tech Startups & SaaS Founders",
+                desc: "High-conversion product landing pages engineered to pitch investors, validate business plans (like ForgeOS), and acquire early users.",
+                features: [
+                    "Interactive value calculators & feature grids",
+                    "Pre-order / Waitlist signup forms",
+                    "SEO-optimized structure for search ranking",
+                    "Sleek dark mode glassmorphism UI"
+                ],
+                tag: "Recommended Stack: Conversion Landing Page"
+            },
+            clinics: {
+                title: "Clinics, Healthcare & Consultants",
+                desc: "Trust-building websites designed to display services, practitioner credentials, and streamline client appointments.",
+                features: [
+                    "Direct appointment inquiry form",
+                    "Location & Google Maps quick launch",
+                    "Patient reviews & service breakdown",
+                    "Clean, hygienic UI styling"
+                ],
+                tag: "Recommended Stack: Business Website"
+            },
+            local: {
+                title: "Local Businesses & Service Providers",
+                desc: "Get your business online rapidly with an interactive direct WhatsApp ordering or quote requesting system.",
+                features: [
+                    "Click-to-call & instant WhatsApp chat",
+                    "Services & price estimation catalog",
+                    "Google search SEO indexing",
+                    "Zero monthly maintenance hassle"
+                ],
+                tag: "Recommended Stack: Fast Business Presence"
+            }
+        };
+
+        // Estimator State
+        let currentEstimator = {
+            type: 'Business Website',
+            features: ['WhatsApp Direct Inquiry', 'Mobile Responsiveness', 'SEO & Speed Boost'],
+            timeline: 'Standard (2-3 Weeks)'
+        };
+
+        // Initialize Industry Selector
+        function selectIndustry(indKey) {
+            const data = industryData[indKey];
+            if (!data) return;
+
+            // Update button styles
+            const buttons = document.querySelectorAll('.ind-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-ind') === indKey) {
+                    btn.className = "ind-btn active px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all flex items-center gap-2 bg-brand-600 border-brand-500 text-white shadow-lg shadow-brand-600/20";
+                } else {
+                    btn.className = "ind-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 transition-all flex items-center gap-2";
+                }
+            });
+
+            // Update Card Content
+            const displayCard = document.getElementById('industry-display-card');
+            displayCard.innerHTML = `
+                <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 rounded-full bg-brand-500/15 border border-brand-500/30 text-brand-accent text-xs font-mono">
+                        ${data.tag}
+                    </span>
+                    <span class="text-xs text-slate-500 font-mono"><i class="fa-solid fa-circle-check text-emerald-400"></i> Tailored Solution</span>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">${data.title}</h3>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">${data.desc}</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                    ${data.features.map(f => `
+                        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-200 flex items-center gap-2.5">
+                            <i class="fa-solid fa-check text-emerald-400"></i>
+                            <span>${f}</span>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="flex items-center gap-4 pt-4 border-t border-slate-800/80">
+                    <a href="#estimator" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-brand-600/20 transition-all flex items-center gap-2">
+                        <span>Build For This Industry</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            `;
+        }
+
+        // Estimator Interactivity
+        function updateEstimator(key, val) {
+            currentEstimator[key] = val;
+            
+            if (key === 'type') {
+                document.querySelectorAll('.est-type-btn').forEach(b => {
+                    if (b.getAttribute('data-val') === val) {
+                        b.className = 'est-type-btn active p-3 rounded-xl border border-brand-500 bg-brand-600/20 text-white text-xs font-semibold text-left transition-all';
+                    } else {
+                        b.className = 'est-type-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-left transition-all';
+                    }
+                });
+            } else if (key === 'timeline') {
+                document.querySelectorAll('.est-time-btn').forEach(b => {
+                    if (b.getAttribute('data-val') === val) {
+                        b.className = 'est-time-btn active p-3 rounded-xl border border-brand-500 bg-brand-600/20 text-white text-xs font-semibold text-center transition-all';
+                    } else {
+                        b.className = 'est-time-btn p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700 text-xs font-semibold text-center transition-all';
+                    }
+                });
+            }
+            renderEstimatorPreview();
+        }
+
+        function toggleFeature(featName) {
+            const idx = currentEstimator.features.indexOf(featName);
+            if (idx > -1) {
+                currentEstimator.features.splice(idx, 1);
+            } else {
+                currentEstimator.features.push(featName);
+            }
+            renderEstimatorPreview();
+        }
+
+        function renderEstimatorPreview() {
+            const featsText = currentEstimator.features.length > 0 ? currentEstimator.features.join(', ') : 'Standard Features';
+            const msg = `Hi Aahil! I would like to discuss building a ${currentEstimator.type} with features: [${featsText}]. Timeline: ${currentEstimator.timeline}. Please let me know your availability!`;
+            document.getElementById('estimator-preview').innerText = msg;
+        }
+
+        function sendEstimatorWhatsApp() {
+            const msg = document.getElementById('estimator-preview').innerText;
+            const encoded = encodeURIComponent(msg);
+            window.open(`https://wa.me/919717667553?text=${encoded}`, '_blank');
+        }
+
+        function sendEstimatorEmail() {
+            const msg = document.getElementById('estimator-preview').innerText;
+            const subject = encodeURIComponent(`Project Request: ${currentEstimator.type}`);
+            const body = encodeURIComponent(msg);
+            window.location.href = `mailto:techokids123@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // Contact Form Handling
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const contact = document.getElementById('form-contact').value;
+            const message = document.getElementById('form-message').value;
+
+            const formattedMsg = `Hi Aahil, my name is ${name} (${contact}). Message: ${message}`;
+            const encoded = encodeURIComponent(formattedMsg);
+
+            // Open WhatsApp with pre-filled message
+            window.open(`https://wa.me/919717667553?text=${encoded}`, '_blank');
+            showToast('Opening WhatsApp with your message!');
+            document.getElementById('contact-form').reset();
+        }
+
+        // Utility: Copy to Clipboard
+        function copyToClipboard(text, successMsg) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(successMsg || 'Copied to clipboard!');
+        }
+
+        // Toast Notification Function
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Modal Handler Functions
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Mobile Menu Navigation Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = 'fa-solid fa-xmark text-xl';
+            } else {
+                menu.classList.add('hidden');
+                icon.className = 'fa-solid fa-bars text-xl';
+            }
+        }
+
+        // On Page Load Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            selectIndustry('robotics');
+            renderEstimatorPreview();
+        });
+    </script>
+</body>
+</html>
