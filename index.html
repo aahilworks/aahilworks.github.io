@@ -17,6 +17,37 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Favicon: inline SVG "A" mark on brand indigo -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='36' font-weight='bold' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+    <!-- Open Graph / Twitter Card: rich link previews on WhatsApp, LinkedIn, X -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Aahil — Portfolio">
+    <meta property="og:title" content="Aahil — Web Developer & Digital Experience Builder">
+    <meta property="og:description" content="Portfolio of Aahil, Web Developer & Digital Experience Builder specializing in modern conversion websites, robotics AI tools, and autonomous web platforms.">
+    <meta property="og:url" content="https://aahilworks.github.io/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aahil — Web Developer & Digital Experience Builder">
+    <meta name="twitter:description" content="Portfolio of Aahil, Web Developer & Digital Experience Builder specializing in modern conversion websites, robotics AI tools, and autonomous web platforms.">
+
+    <!-- Structured data: Person schema for search engines -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Aahil",
+        "url": "https://aahilworks.github.io/",
+        "jobTitle": "Web Developer & Digital Experience Builder",
+        "description": "Web Developer & Digital Experience Builder specializing in modern conversion websites, robotics AI tools, and autonomous web platforms.",
+        "email": "mailto:techokids123@gmail.com",
+        "telephone": "+91 9717667553",
+        "sameAs": [
+            "https://github.com/aahilworks",
+            "https://www.circuitai.in"
+        ]
+    }
+    </script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -197,7 +228,7 @@
         <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/80 bg-dark-bg/95 backdrop-blur-2xl px-4 pt-4 pb-6 space-y-3">
             <div class="flex items-center gap-2 px-3 py-2 mb-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium w-fit">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                Available for New Projects (2026)
+                Available for New Projects | Q4 2026
             </div>
             <a href="#featured" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800/60 font-medium">
                 <i class="fa-solid fa-star text-brand-amber mr-2"></i> Featured Projects
@@ -948,6 +979,23 @@
                             </a>
                         </div>
 
+                        <!-- GitHub Card -->
+                        <div class="glass-card p-5 rounded-2xl flex items-center justify-between border-slate-800 hover:border-slate-400/50">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-slate-400/10 border border-slate-400/30 flex items-center justify-center text-slate-200 text-xl">
+                                    <i class="fa-brands fa-github"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-mono text-slate-400">Code & Open Source</div>
+                                    <div class="text-sm sm:text-base font-bold text-white">github.com/aahilworks</div>
+                                </div>
+                            </div>
+                            <a href="https://github.com/aahilworks" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs transition-all flex items-center gap-1.5">
+                                <span>Profile</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
                     </div>
 
                     <!-- Direct Fast Actions -->
@@ -1009,8 +1057,9 @@
             </div>
 
             <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
-                <a href="#featured" class="hover:text-white transition-colors">Circuit AI</a>
+                <a href="https://www.circuitai.in" target="_blank" rel="noopener" class="hover:text-white transition-colors">Circuit AI</a>
                 <a href="#featured" class="hover:text-white transition-colors">ForgeOS</a>
+                <a href="https://github.com/aahilworks" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a>
                 <a href="#services" class="hover:text-white transition-colors">Services</a>
                 <a href="#estimator" class="hover:text-white transition-colors">Estimator</a>
                 <a href="#contact" class="hover:text-white transition-colors">Contact</a>
